@@ -3,6 +3,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import requests
 from typing import Optional
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = FastAPI()
 
@@ -23,8 +28,8 @@ class ChatResponse(BaseModel):
     response: str
 
 # LangFlow API configuration
-BASE_API_URL = "http://35.176.125.157:7860"
-FLOW_ID = "e9aab95c-d25d-4036-93f2-bb39cc06b477"
+BASE_API_URL = os.getenv("BASE_API_URL")
+FLOW_ID = os.getenv("FLOW_ID")
 
 def run_flow(message: str,
              endpoint: str = FLOW_ID,
